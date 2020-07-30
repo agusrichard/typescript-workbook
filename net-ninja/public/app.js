@@ -1,25 +1,11 @@
-"use strict";
-var Invoice = /** @class */ (function () {
-    // readonly client: string
-    // private details: string
-    // public amount: number
-    function Invoice(client, details, amount) {
-        this.client = client;
-        this.details = details;
-        this.amount = amount;
-    }
-    Invoice.prototype.format = function () {
-        return this.client + " owes \u00A3" + this.amount + " for " + this.details;
-    };
-    return Invoice;
-}());
-var invOne = new Invoice('sekardayu', 'something', 200);
-var invTwo = new Invoice('saskia', 'something', 140);
+import { Invoice } from './classes/Invoice.js';
+const invOne = new Invoice('sekardayu', 'something', 200);
+const invTwo = new Invoice('saskia', 'something', 140);
 console.log(invOne, invTwo);
-var invoices = [];
+const invoices = [];
 invoices.push(invOne);
 invoices.push(invTwo);
 console.log(invoices);
-invoices.forEach(function (inv) {
+invoices.forEach(inv => {
     console.log(inv.format());
 });
