@@ -1,14 +1,19 @@
 "use strict";
-// const anchor = document.querySelector('a')!
-// console.log(anchor.href)
-// const form = document.querySelector('form')!
-var form = document.querySelector('.new-item-form');
-// console.log(form.children)
-var type = document.querySelector('#type');
-var tofrom = document.querySelector('#tofrom');
-var details = document.querySelector('#details');
-var amount = document.querySelector('#amount');
-form.addEventListener('submit', function (event) {
-    event.preventDefault();
-    console.log(type.value, tofrom.value, details.value, amount.valueAsNumber);
-});
+var Invoice = /** @class */ (function () {
+    function Invoice(client, details, amount) {
+        this.client = client;
+        this.details = details;
+        this.amount = amount;
+    }
+    Invoice.prototype.format = function () {
+        return this.client + " owes \u00A3" + this.amount + " for " + this.details;
+    };
+    return Invoice;
+}());
+var invOne = new Invoice('sekardayu', 'something', 200);
+var invTwo = new Invoice('saskia', 'something', 140);
+console.log(invOne, invTwo);
+var invoices = [];
+invoices.push(invOne);
+invoices.push(invTwo);
+console.log(invoices);

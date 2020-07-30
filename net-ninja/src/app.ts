@@ -1,21 +1,25 @@
-// const anchor = document.querySelector('a')!
-// console.log(anchor.href)
+class Invoice {
+  client: string
+  details: string
+  amount: number
 
-// const form = document.querySelector('form')!
-const form = document.querySelector('.new-item-form') as HTMLFormElement
-// console.log(form.children)
+  constructor(client: string, details: string, amount: number) {
+    this.client = client
+    this.details = details
+    this.amount = amount
+  }
 
-const type = document.querySelector('#type') as HTMLSelectElement
-const tofrom = document.querySelector('#tofrom') as HTMLInputElement
-const details = document.querySelector('#details') as HTMLInputElement
-const amount = document.querySelector('#amount') as HTMLInputElement
+  format() {
+    return `${this.client} owes £${this.amount} for ${this.details}`
+  }
+}
 
-form.addEventListener('submit', (event: Event) => {
-  event.preventDefault()
-  console.log(
-    type.value,
-    tofrom.value,
-    details.value,
-    amount.valueAsNumber
-  )
-})
+const invOne = new Invoice('sekardayu', 'something', 200)
+const invTwo = new Invoice('saskia', 'something', 140)
+
+console.log(invOne, invTwo)
+
+const invoices: Invoice[] = []
+invoices.push(invOne)
+invoices.push(invTwo)
+console.log(invoices)
