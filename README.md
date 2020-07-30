@@ -1,2 +1,3 @@
-# learn-excel-coursera
- Learning notes and workbook of Coursera Excel Class
+# typescript-workbook
+ Learning notes and workbook for TypeScript
+
