@@ -1,13 +1,13 @@
 class Invoice {
-  client: string
-  details: string
-  amount: number
+  // readonly client: string
+  // private details: string
+  // public amount: number
 
-  constructor(client: string, details: string, amount: number) {
-    this.client = client
-    this.details = details
-    this.amount = amount
-  }
+  constructor(
+    readonly client: string,
+    private details: string,
+    public amount: number
+  ) {}
 
   format() {
     return `${this.client} owes £${this.amount} for ${this.details}`
@@ -23,3 +23,7 @@ const invoices: Invoice[] = []
 invoices.push(invOne)
 invoices.push(invTwo)
 console.log(invoices)
+
+invoices.forEach(inv => {
+  console.log(inv.format())
+})

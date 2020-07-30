@@ -1,5 +1,8 @@
 "use strict";
 var Invoice = /** @class */ (function () {
+    // readonly client: string
+    // private details: string
+    // public amount: number
     function Invoice(client, details, amount) {
         this.client = client;
         this.details = details;
@@ -17,3 +20,6 @@ var invoices = [];
 invoices.push(invOne);
 invoices.push(invTwo);
 console.log(invoices);
+invoices.forEach(function (inv) {
+    console.log(inv.format());
+});
