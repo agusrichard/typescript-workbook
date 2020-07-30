@@ -1,4 +1,6 @@
-export class Payment {
+import { HasFormatter } from "../interfaces/HasFormatter.js";
+
+export class Payment implements HasFormatter {
   
     constructor(
       readonly recipient: string,
@@ -7,6 +9,6 @@ export class Payment {
     ) {}
   
     format() {
-      return `${this.recipient} owes £${this.amount} for ${this.details}`
+      return `${this.recipient} is owed £${this.amount} for ${this.details}`
     }
   }
