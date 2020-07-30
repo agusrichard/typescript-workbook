@@ -1,42 +1,29 @@
-"use strict";
-// Generics
-// const addUID = (obj: object) => {
-//   const uid = Math.floor(Math.random() * 1000000)
-//   return {...obj, uid}
-// }
-// let docOne = addUID({ name: 'agus', age: 22})
-// console.log(docOne.name)     // error
-// const addUID = <T>(obj: T) => {
-//   const uid = Math.floor(Math.random() * 1000000)
-//   return {...obj, uid}
-// }
-// let docTwo = addUID({ name: 'sekar', age: 22 })
-// console.log(docTwo.name)
-// let something = addUID('hello')   // weird behavior
-// console.log(something)
-// const addUID = <T extends { name: string }>(obj: T) => {
-//   const uid = Math.floor(Math.random() * 1000000)
-//   return {...obj, uid}
-// }
-// let docThree = addUID({ name: 'saskia', age: 22 })
-// console.log(docThree)
-var Resourcetype;
-(function (Resourcetype) {
-    Resourcetype[Resourcetype["BOOK"] = 0] = "BOOK";
-    Resourcetype[Resourcetype["AUTHOR"] = 1] = "AUTHOR";
-    Resourcetype[Resourcetype["FILM"] = 2] = "FILM";
-    Resourcetype[Resourcetype["DIRECTOR"] = 3] = "DIRECTOR";
-    Resourcetype[Resourcetype["PERSON"] = 4] = "PERSON";
-})(Resourcetype || (Resourcetype = {}));
-const docFour = {
-    uid: 12901921,
-    resourceName: Resourcetype.AUTHOR,
-    data: 'Sekardayu Hana Pradiani'
-};
-const docFive = {
-    uid: 91919,
-    resourceName: Resourcetype.DIRECTOR,
-    data: ['Saskia', 'Nurul', 'Azhima']
-};
-console.log(docFour);
-console.log(docFive);
+import { Invoice } from './classes/Invoice.js';
+import { Payment } from './classes/Payment.js';
+import { ListTemplate } from './classes/ListTemplate.js';
+const form = document.querySelector('.new-item-form');
+const type = document.querySelector('#type');
+const tofrom = document.querySelector('#tofrom');
+const details = document.querySelector('#details');
+const amount = document.querySelector('#amount');
+const ul = document.querySelector('ul');
+const list = new ListTemplate(ul);
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    let values;
+    values = [tofrom.value, details.value, amount.valueAsNumber];
+    let doc;
+    if (type.value === 'invoice') {
+        doc = new Invoice(...values);
+    }
+    else {
+        doc = new Payment(...values);
+    }
+    list.render(doc, type.value, 'start');
+});
+// Tuples
+let mixed = ['sekar', 22, true];
+console.log(mixed);
+let tup;
+tup = ['saskia', 20, true];
+console.log(tup);

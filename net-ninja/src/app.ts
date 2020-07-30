@@ -1,49 +1,40 @@
-// Generics
-// const addUID = (obj: object) => {
-//   const uid = Math.floor(Math.random() * 1000000)
-//   return {...obj, uid}
-// }
+import { Invoice } from './classes/Invoice.js'
+import { Payment } from './classes/Payment.js'
+import { HasFormatter } from './interfaces/HasFormatter.js'
+import { ListTemplate } from './classes/ListTemplate.js'
 
-// let docOne = addUID({ name: 'agus', age: 22})
-// console.log(docOne.name)     // error
 
-// const addUID = <T>(obj: T) => {
-//   const uid = Math.floor(Math.random() * 1000000)
-//   return {...obj, uid}
-// }
+const form = document.querySelector('.new-item-form') as HTMLFormElement
 
-// let docTwo = addUID({ name: 'sekar', age: 22 })
-// console.log(docTwo.name)
-// let something = addUID('hello')   // weird behavior
-// console.log(something)
+const type = document.querySelector('#type') as HTMLSelectElement
+const tofrom = document.querySelector('#tofrom') as HTMLInputElement
+const details = document.querySelector('#details') as HTMLInputElement
+const amount = document.querySelector('#amount') as HTMLInputElement
 
-// const addUID = <T extends { name: string }>(obj: T) => {
-//   const uid = Math.floor(Math.random() * 1000000)
-//   return {...obj, uid}
-// }
+const ul = document.querySelector('ul')!
+const list = new ListTemplate(ul)
 
-// let docThree = addUID({ name: 'saskia', age: 22 })
-// console.log(docThree)
+form.addEventListener('submit', (event: Event) => {
+  event.preventDefault()
 
-enum Resourcetype { BOOK, AUTHOR, FILM, DIRECTOR, PERSON }
+  let values: [string, string, number]
+  values = [tofrom.value, details.value, amount.valueAsNumber]
 
-interface Resource<T> {
-  uid: number|string,
-  resourceName: Resourcetype,
-  data: T
-}
+  let doc: HasFormatter
+  if (type.value === 'invoice') {
+    doc = new Invoice(...values)
+  } else {
+    doc = new Payment(...values)
+  }
 
-const docFour: Resource<string> = {
-  uid: 12901921,
-  resourceName: Resourcetype.AUTHOR,
-  data: 'Sekardayu Hana Pradiani'
-}
+  list.render(doc, type.value, 'start')
+})
 
-const docFive: Resource<string[]> = {
-  uid: 91919,
-  resourceName: Resourcetype.DIRECTOR,
-  data: ['Saskia', 'Nurul', 'Azhima']
-}
 
-console.log(docFour)
-console.log(docFive)
+// Tuples
+let mixed = ['sekar', 22, true]
+console.log(mixed)
+
+let tup: [string, number, boolean]
+tup = ['saskia', 20, true]
+console.log(tup)
