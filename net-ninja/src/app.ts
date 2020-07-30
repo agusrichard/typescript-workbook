@@ -1,42 +1,47 @@
-import { Invoice } from './classes/Invoice.js'
-import { Payment } from './classes/Payment.js'
-import { HasFormatter } from './interfaces/HasFormatter.js'
-import { ListTemplate } from './classes/ListTemplate.js'
+// Generics
+// const addUID = (obj: object) => {
+//   const uid = Math.floor(Math.random() * 1000000)
+//   return {...obj, uid}
+// }
 
-// const inv = new Invoice('agus', 'web work', 200)
-// const pay = new Payment('sekar', 'marketting', 300)
+// let docOne = addUID({ name: 'agus', age: 22})
+// console.log(docOne.name)     // error
 
-// console.log(inv, pay)
+// const addUID = <T>(obj: T) => {
+//   const uid = Math.floor(Math.random() * 1000000)
+//   return {...obj, uid}
+// }
 
-// let invOne: HasFormatter
-// let payOne: HasFormatter
+// let docTwo = addUID({ name: 'sekar', age: 22 })
+// console.log(docTwo.name)
+// let something = addUID('hello')   // weird behavior
+// console.log(something)
 
-// invOne = new Invoice('saskia', 'accounting', 100)
-// payOne = new Payment('sintya', 'communicating', 150)
+// const addUID = <T extends { name: string }>(obj: T) => {
+//   const uid = Math.floor(Math.random() * 1000000)
+//   return {...obj, uid}
+// }
 
-// console.log(invOne, payOne)
+// let docThree = addUID({ name: 'saskia', age: 22 })
+// console.log(docThree)
 
-// const anchor = document.querySelector('a')!
-// console.log(anchor.href)
+interface Resource<T> {
+  uid: number|string,
+  resourceName: string,
+  data: T
+}
 
-const form = document.querySelector('.new-item-form') as HTMLFormElement
+const docFour: Resource<string> = {
+  uid: 12901921,
+  resourceName: 'sekardayu',
+  data: 'Sekardayu Hana Pradiani'
+}
 
-const type = document.querySelector('#type') as HTMLSelectElement
-const tofrom = document.querySelector('#tofrom') as HTMLInputElement
-const details = document.querySelector('#details') as HTMLInputElement
-const amount = document.querySelector('#amount') as HTMLInputElement
+const docFive: Resource<string[]> = {
+  uid: 91919,
+  resourceName: 'saskia',
+  data: ['Saskia', 'Nurul', 'Azhima']
+}
 
-const ul = document.querySelector('ul')!
-const list = new ListTemplate(ul)
-
-form.addEventListener('submit', (event: Event) => {
-  event.preventDefault()
-  let doc: HasFormatter
-  if (type.value === 'invoice') {
-    doc = new Invoice(tofrom.value, details.value, amount.valueAsNumber)
-  } else {
-    doc = new Payment(tofrom.value, details.value, amount.valueAsNumber)
-  }
-
-  list.render(doc, type.value, 'start')
-})
+console.log(docFour)
+console.log(docFive)
