@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  wallet-api-server:
+    build:
+      context: .
+    container_name: wallet-api-server
+    image: wallet-api-server
+    restart: unless-stopped
+    env_file:
+      - ".env"
+    volumes:
+      - ./logs:/logs
+    networks:
+      - app-network
+    ports:
+      - "3000:3000"
+  wallet-db:
+    build:
+      context: .
+      dockerfile: postgres.Dockerfile
+    ports:
+      - "5432:5432"
+    container_name: wallet-db
+    env_file:
+      - ".env"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${DB}
+    volumes:
+      - wallet-db-volume:/var/lib/postgresql/data
+networks:
+  app-network:
+    driver: bridge
+volumes:
+  wallet-db-volume:
+    driver: local
