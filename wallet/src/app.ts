@@ -7,6 +7,6 @@ const port = 3000
 
 app.use(routes)
 
-app.listen(() => {
+app.listen(port, () => {
     console.log(`Server listening on port ${port}`)
 })

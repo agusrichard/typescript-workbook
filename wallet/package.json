@@ -6,9 +6,9 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "eslint": "eslint src/server.ts",
+    "eslint": "eslint src/app.ts",
     "start": "node dist/server.js",
-    "dev-server": "NODE_ENV=development nodemon src/server.ts",
+    "dev-server": "NODE_ENV=development nodemon src/app.ts",
     "lint": "./node_modules/eslint/bin/eslint.js  src --ext .ts",
     "ts-node-server": "ts-node src/server.ts",
     "fix-lint": "./node_modules/eslint/bin/eslint.js  src --ext .ts --fix"
