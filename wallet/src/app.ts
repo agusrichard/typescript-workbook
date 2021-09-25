@@ -1,11 +1,30 @@
+import bodyParser from 'body-parser'
 import express, { Express } from 'express'
-import routes from './routes'
 
+// Configs 
+import { Configs, DB } from './configs'
+
+// Models 
+import models, { Users } from './models'
+
+// Controllers 
+
+// Routes 
+import { UserRouter } from './routes'
+
+
+// Application Initialization
 const app: Express = express()
-const port = 3000
 
-app.use('/users', routes.userRouter)
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`)
+// Models Initializations
+const usersModel: Users = models.usersInitializer(DB)
+
+// Controllers Initializations
+
+
+app.use('/users', UserRouter)
+
+app.listen(Configs.PORT, () => {
+  console.log(`Server listening on port ${Configs.PORT}`)
 })

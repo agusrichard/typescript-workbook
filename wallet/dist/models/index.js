@@ -5,6 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const users_1 = __importDefault(require("./users"));
 exports.default = {
-    userRouter: users_1.default,
+    usersModel: users_1.default
 };
 //# sourceMappingURL=index.js.map
