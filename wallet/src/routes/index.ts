@@ -1,9 +1,5 @@
-import { Router } from 'express'
+import userRouter from './user'
 
-const router: Router = Router()
-
-router.get('/', (req, res) => {
-    res.send('Hello World')
-})
-
-export default router
+export default {
+  userRouter,
+}

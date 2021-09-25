@@ -4,12 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const routes_1 = __importDefault(require("./routes"));
 const app = (0, express_1.default)();
 const port = 3000;
-app.get('/', (req, res) => {
-    res.send('Hello World');
-});
-app.listen(() => {
+app.use('/users', routes_1.default.userRouter);
+app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
-//# sourceMappingURL=server.js.map
+//# sourceMappingURL=app.js.map
