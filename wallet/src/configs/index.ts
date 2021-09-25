@@ -1,7 +1,8 @@
-import DB from './db'
-import Configs from './configs'
+import initializeDatabase from './db'
+import Configs, { ConfigType } from './configs'
 
 export {
-  DB,
-  Configs
+  Configs,
+  ConfigType,
+  initializeDatabase,
 }

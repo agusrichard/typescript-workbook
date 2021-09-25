@@ -1,13 +1,15 @@
 import { Pool } from 'pg'
 
-import Configs from './configs'
+import { ConfigType } from './configs'
 
-const pool: Pool = new Pool({
-  user: Configs.DB_USER,
-  host: Configs.DB_HOST,
-  database: Configs.DB_NAME,
-  password: Configs.DB_PASSWORD,
-  port: Configs.DB_PORT,
-})
+const initializeDatabase = (configs: ConfigType) => {
+  return new Pool({
+    user: configs.DB_USER,
+    host: configs.DB_HOST,
+    database: configs.DB_NAME,
+    password: configs.DB_PASSWORD,
+    port: configs.DB_PORT,
+  })
+}
 
-export default pool
+export default initializeDatabase
