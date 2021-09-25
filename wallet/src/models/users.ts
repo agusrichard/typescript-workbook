@@ -1,17 +1,15 @@
 import { Pool } from 'pg'
 
-type Users = {
+export interface UsersModel {
 
 }
 
-const usersInitializer = (db: Pool): Users => {
+type Initializer = (pool: Pool) => UsersModel
+
+const initializeUsersModel: Initializer = (db: Pool): UsersModel => {
   return {
 
   }
 }
 
-export {
-  Users,
-}
-
-export default usersInitializer
+export default initializeUsersModel

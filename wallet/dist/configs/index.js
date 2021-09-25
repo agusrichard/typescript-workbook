@@ -3,8 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const users_1 = __importDefault(require("./users"));
-exports.default = {
-    initializeUsersModel: users_1.default,
-};
+exports.Configs = exports.DB = void 0;
+const db_1 = __importDefault(require("./db"));
+exports.DB = db_1.default;
+const configs_1 = __importDefault(require("./configs"));
+exports.Configs = configs_1.default;
 //# sourceMappingURL=index.js.map

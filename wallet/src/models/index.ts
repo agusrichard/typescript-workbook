@@ -1,9 +1,9 @@
-import usersInitializer, { Users } from './users'
+import initializeUsersModel, { UsersModel } from './users'
 
 export {
-  Users
+  UsersModel
 }
 
 export default {
-  usersInitializer,
+  initializeUsersModel,
 }

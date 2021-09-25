@@ -5,12 +5,13 @@ import express, { Express } from 'express'
 import { Configs, DB } from './configs'
 
 // Models 
-import models, { Users } from './models'
+import models, { UsersModel } from './models'
 
 // Controllers 
+import controllers, { UsersController } from './controllers'
 
 // Routes 
-import { UserRouter } from './routes'
+import routers from './routers'
 
 
 // Application Initialization
@@ -18,12 +19,13 @@ const app: Express = express()
 
 
 // Models Initializations
-const usersModel: Users = models.usersInitializer(DB)
+const usersModel: UsersModel = models.initializeUsersModel(DB)
 
 // Controllers Initializations
+const usersController: UsersController = controllers.initializeUsersController(usersModel)
 
 
-app.use('/users', UserRouter)
+app.use('/users', routers.initializeUsersRouter(usersController))
 
 app.listen(Configs.PORT, () => {
   console.log(`Server listening on port ${Configs.PORT}`)
