@@ -7,7 +7,6 @@ import { Configs, initializeDatabase } from './configs'
 import controllers, { UsersController } from './controllers'
 import middlewares, { AuthMiddleware } from './middlewares'
 
-
 // Application Initialization
 const app: Express = express()
 
@@ -27,7 +26,6 @@ const usersController: UsersController = controllers.initializeUsersController(u
 const usersRouters: Router = routers.initializeUsersRouter(usersController, authMiddleware)
 
 app.use(bodyParser.json())
-
 
 app.use('/users', usersRouters)
 

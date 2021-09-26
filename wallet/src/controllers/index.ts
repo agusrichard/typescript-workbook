@@ -1,9 +1,9 @@
 import initializeUsersController, { UsersController } from './users'
 
 export {
-  UsersController
+  UsersController,
 }
 
 export default {
-  initializeUsersController
+  initializeUsersController,
 }

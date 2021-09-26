@@ -1,10 +1,9 @@
 import initializeAuthMiddleware, { AuthMiddleware } from './auth'
 
 export {
-  AuthMiddleware
+  AuthMiddleware,
 }
 
-
 export default {
-  initializeAuthMiddleware
+  initializeAuthMiddleware,
 }

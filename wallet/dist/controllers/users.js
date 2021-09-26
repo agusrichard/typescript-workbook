@@ -10,25 +10,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const utils_1 = require("../utils");
-const initializeUsersController = (usersModel) => {
-    return {
-        login: (req, res) => {
-            res.json({ message: 'Login' });
-        },
-        register: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-            try {
-                const user = Object.assign({}, req.body);
-                const newUser = yield usersModel.register(user);
-                return utils_1.ResponseTemplate.successResponse(res, 'Success to register user', newUser);
-            }
-            catch (error) {
-                return utils_1.ResponseTemplate.internalServerError(res);
-            }
-        }),
-        profile: (req, res) => {
-            res.json({ message: 'Profile' });
+const initializeUsersController = (usersModel) => ({
+    login: (req, res) => {
+        res.json({ message: 'Login' });
+    },
+    register: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const user = Object.assign({}, req.body);
+            const newUser = yield usersModel.register(user);
+            return utils_1.ResponseTemplate.successResponse(res, 'Success to register user', newUser);
         }
-    };
-};
+        catch (error) {
+            return utils_1.ResponseTemplate.internalServerError(res);
+        }
+    }),
+    profile: (req, res) => {
+        res.json({ message: 'Profile' });
+    },
+});
 exports.default = initializeUsersController;
 //# sourceMappingURL=users.js.map

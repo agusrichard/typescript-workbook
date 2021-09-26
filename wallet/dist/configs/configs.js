@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const Configs = {
-    PORT: parseInt(process.env.PORT || '3000'),
-    DB_PORT: parseInt(process.env.DB_PORT),
+    PORT: parseInt(process.env.PORT || '3000', 10),
+    DB_PORT: parseInt(process.env.DB_PORT, 10),
     DB_HOST: process.env.DB_HOST,
     DB_USER: process.env.DB_USER,
     DB_NAME: process.env.DB_NAME,

@@ -9,32 +9,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const initializeUsersModel = (db) => {
-    return {
-        register: (user) => __awaiter(void 0, void 0, void 0, function* () {
-            try {
-                const query = `
-          INSERT INTO users (
-            email,
-            password,
-            fullname
-          )
-          VALUES (
-            $1,
-            $2,
-            $3
-          )
-          RETURNING id;
-        `;
-                const { rows } = yield db.query(query, [user.email, user.password, user.fullname]);
-                const newUser = Object.assign({}, rows[0]);
-                return Promise.resolve(newUser);
-            }
-            catch (error) {
-                return Promise.reject("UsersModel error: " + error);
-            }
-        })
-    };
-};
+const initializeUsersModel = (db) => ({
+    register: (user) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const query = `
+        INSERT INTO users (
+          email,
+          password,
+          fullname
+        )
+        VALUES (
+          $1,
+          $2,
+          $3
+        )
+        RETURNING id;
+      `;
+            const { rows } = yield db.query(query, [user.email, user.password, user.fullname]);
+            const newUser = Object.assign({}, rows[0]);
+            return Promise.resolve(newUser);
+        }
+        catch (error) {
+            return Promise.reject(error);
+        }
+    }),
+});
 exports.default = initializeUsersModel;
 //# sourceMappingURL=users.js.map

@@ -1,7 +1,7 @@
 import initializeUsersModel, { UsersModel } from './users'
 
 export {
-  UsersModel
+  UsersModel,
 }
 
 export default {
