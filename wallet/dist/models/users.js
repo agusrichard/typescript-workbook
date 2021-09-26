@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const initializeUsersModel = (db) => ({
-    register: (user) => __awaiter(void 0, void 0, void 0, function* () {
+    create: (user) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const query = `
         INSERT INTO users (
@@ -26,6 +26,34 @@ const initializeUsersModel = (db) => ({
         RETURNING id;
       `;
             const { rows } = yield db.query(query, [user.email, user.password, user.fullname]);
+            const newUser = Object.assign({}, rows[0]);
+            return Promise.resolve(newUser);
+        }
+        catch (error) {
+            return Promise.reject(error);
+        }
+    }),
+    findById: (id) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const query = `
+        SELECT * from users
+        WHERE id = $1;
+      `;
+            const { rows } = yield db.query(query, [id]);
+            const newUser = Object.assign({}, rows[0]);
+            return Promise.resolve(newUser);
+        }
+        catch (error) {
+            return Promise.reject(error);
+        }
+    }),
+    findByEmail: (email) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const query = `
+        SELECT * from users
+        WHERE email = $1;
+      `;
+            const { rows } = yield db.query(query, [email]);
             const newUser = Object.assign({}, rows[0]);
             return Promise.resolve(newUser);
         }

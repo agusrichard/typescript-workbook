@@ -11,22 +11,49 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const utils_1 = require("../utils");
 const initializeUsersController = (usersModel) => ({
-    login: (req, res) => {
-        res.json({ message: 'Login' });
-    },
     register: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const user = Object.assign({}, req.body);
-            const newUser = yield usersModel.register(user);
+            const userFound = yield usersModel.findByEmail(req.body.email);
+            if (userFound) {
+                return utils_1.ResponseTemplate.badRequestError(res, 'User has been registered');
+            }
+            const hashedPassword = yield (0, utils_1.generatePassword)(req.body.password);
+            const user = Object.assign(Object.assign({}, req.body), { password: hashedPassword });
+            const newUser = yield usersModel.create(user);
             return utils_1.ResponseTemplate.successResponse(res, 'Success to register user', newUser);
         }
         catch (error) {
             return utils_1.ResponseTemplate.internalServerError(res);
         }
     }),
-    profile: (req, res) => {
-        res.json({ message: 'Profile' });
-    },
+    login: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const userFound = yield usersModel.findByEmail(req.body.email);
+            if (!userFound) {
+                return utils_1.ResponseTemplate.badRequestError(res, 'Wrong email or password');
+            }
+            const isPasswordValid = yield (0, utils_1.comparePassword)(req.body.password, userFound.password);
+            if (!isPasswordValid) {
+                return utils_1.ResponseTemplate.badRequestError(res, 'Wrong email or password');
+            }
+            const token = (0, utils_1.generateToken)({ id: userFound.id });
+            const userWithToken = Object.assign(Object.assign({}, userFound), { token });
+            return utils_1.ResponseTemplate.successResponse(res, 'Success to login user', Object.assign(Object.assign({}, userWithToken), { password: undefined }));
+        }
+        catch (error) {
+            return utils_1.ResponseTemplate.internalServerError(res);
+        }
+    }),
+    profile: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const { id } = res.locals.userData;
+            const user = yield usersModel.findById(id);
+            return utils_1.ResponseTemplate.successResponse(res, 'Success to get user profile', Object.assign(Object.assign({}, user), { password: undefined }));
+        }
+        catch (error) {
+            return utils_1.ResponseTemplate.internalServerError(res);
+        }
+    }),
 });
 exports.default = initializeUsersController;
 //# sourceMappingURL=users.js.map

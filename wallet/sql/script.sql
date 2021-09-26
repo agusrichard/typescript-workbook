@@ -1,11 +1,12 @@
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL NOT NULL,
-    email VARCHAR(32) NOT NULL UNIQUE,
+    email VARCHAR(32) NOT NULL,
     fullname VARCHAR(128) NOT NULL,
     password VARCHAR(256) NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
     deleted_at TIMESTAMPTZ NULL,
-    CONSTRAINT users_pk PRIMARY KEY (id)
+    CONSTRAINT users_pk PRIMARY KEY (id),
+    CONSTRAINT users_email UNIQUE (email)
 )

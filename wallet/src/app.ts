@@ -14,7 +14,7 @@ const app: Express = express()
 const db = initializeDatabase(Configs)
 
 // Middlewares Initializations
-const authMiddleware: AuthMiddleware = middlewares.initializeAuthMiddleware(Configs)
+const authMiddleware: AuthMiddleware = middlewares.initializeAuthMiddleware()
 
 // Models Initializations
 const usersModel: UsersModel = models.initializeUsersModel(db)

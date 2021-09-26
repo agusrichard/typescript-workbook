@@ -15,7 +15,7 @@ const app = (0, express_1.default)();
 // Initialize Databse
 const db = (0, configs_1.initializeDatabase)(configs_1.Configs);
 // Middlewares Initializations
-const authMiddleware = middlewares_1.default.initializeAuthMiddleware(configs_1.Configs);
+const authMiddleware = middlewares_1.default.initializeAuthMiddleware();
 // Models Initializations
 const usersModel = models_1.default.initializeUsersModel(db);
 // Controllers Initializations

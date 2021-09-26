@@ -1,6 +1,7 @@
-import initializeUsersModel, { UsersModel } from './users'
+import initializeUsersModel, { User, UsersModel } from './users'
 
 export {
+  User,
   UsersModel,
 }
 

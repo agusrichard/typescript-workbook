@@ -1,21 +1,27 @@
 import { Pool } from 'pg'
 
-export interface UsersModel {
+export interface User {
   id?: number
   email?: string
   fullname?: string,
   password?: string,
-  createdAt?: Date,
-  updatedAt?: Date,
-  isDeleted?: boolean,
-  deletedAt?: Date
-  register: (user: UsersModel) => Promise<UsersModel>
+  created_at?: Date,
+  updated_at?: Date,
+  is_deleted?: boolean,
+  deleted_at?: Date,
+  token?: string
+}
+
+export interface UsersModel {
+  create: (user: User) => Promise<User>
+  findById: (id: number) => Promise<User>
+  findByEmail: (email: string) => Promise<User>
 }
 
 type Initializer = (pool: Pool) => UsersModel
 
 const initializeUsersModel: Initializer = (db: Pool): UsersModel => ({
-  register: async (user: UsersModel): Promise<UsersModel> => {
+  create: async (user: User): Promise<User> => {
     try {
       const query = `
         INSERT INTO users (
@@ -31,7 +37,33 @@ const initializeUsersModel: Initializer = (db: Pool): UsersModel => ({
         RETURNING id;
       `
       const { rows } = await db.query(query, [user.email, user.password, user.fullname])
-      const newUser: UsersModel = { ...rows[0] }
+      const newUser: User = { ...rows[0] }
+      return Promise.resolve(newUser)
+    } catch (error) {
+      return Promise.reject(error)
+    }
+  },
+  findById: async (id: number): Promise<User> => {
+    try {
+      const query = `
+        SELECT * from users
+        WHERE id = $1;
+      `
+      const { rows } = await db.query(query, [id])
+      const newUser: User = { ...rows[0] }
+      return Promise.resolve(newUser)
+    } catch (error) {
+      return Promise.reject(error)
+    }
+  },
+  findByEmail: async (email: string): Promise<User> => {
+    try {
+      const query = `
+        SELECT * from users
+        WHERE email = $1;
+      `
+      const { rows } = await db.query(query, [email])
+      const newUser: User = { ...rows[0] }
       return Promise.resolve(newUser)
     } catch (error) {
       return Promise.reject(error)
