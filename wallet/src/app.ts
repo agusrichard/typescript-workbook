@@ -1,11 +1,12 @@
+import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import express, { Express, Router } from 'express'
 
 import routers from './routers'
 import models, { UsersModel } from './models'
 import { Configs, initializeDatabase } from './configs'
-import controllers, { UsersController } from './controllers'
 import middlewares, { AuthMiddleware } from './middlewares'
+import controllers, { UsersController } from './controllers'
 
 // Application Initialization
 const app: Express = express()
@@ -26,6 +27,7 @@ const usersController: UsersController = controllers.initializeUsersController(u
 const usersRouters: Router = routers.initializeUsersRouter(usersController, authMiddleware)
 
 app.use(bodyParser.json())
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 
 app.use('/users', usersRouters)
 

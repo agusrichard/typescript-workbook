@@ -15,8 +15,6 @@ const initializeAuthMiddleware = (): AuthMiddleware => ({
         return ResponseTemplate.unauthorizedError(res)
       }
 
-      console.log('token.slice(7)', token.slice(7))
-
       res.locals.userData = verifyToken(token.slice(7))
       next()
       return null
