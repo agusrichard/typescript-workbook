@@ -9,4 +9,14 @@ CREATE TABLE IF NOT EXISTS users (
     deleted_at TIMESTAMPTZ NULL,
     CONSTRAINT users_pk PRIMARY KEY (id),
     CONSTRAINT users_email UNIQUE (email)
-)
+);
+
+CREATE TABLE public.income_expense_type (
+	id serial NOT NULL,
+	description varchar(64) NOT NULL,
+	user_id int4 NOT NULL,
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    deleted_at TIMESTAMPTZ NULL,
+	CONSTRAINT income_expense_type_description_key UNIQUE (description, user_id),
+	CONSTRAINT income_expense_type_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id)
+);
