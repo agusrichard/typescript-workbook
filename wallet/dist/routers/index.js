@@ -4,9 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const users_1 = __importDefault(require("./users"));
+const income_expense_1 = __importDefault(require("./income_expense"));
 const income_expense_type_1 = __importDefault(require("./income_expense_type"));
 exports.default = {
     initializeUsersRouter: users_1.default,
+    initializeIncomeExpenseRouter: income_expense_1.default,
     initializeIncomeExpenseTypeRouter: income_expense_type_1.default,
 };
 //# sourceMappingURL=index.js.map

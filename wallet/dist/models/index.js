@@ -5,8 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const users_1 = __importDefault(require("./users"));
 const income_expense_type_1 = __importDefault(require("./income_expense_type"));
+const income_expense_1 = __importDefault(require("./income_expense"));
 exports.default = {
     initializeUsersModel: users_1.default,
     initilizeIncomeExpenseTypeModel: income_expense_type_1.default,
+    initializeIncomeExpenseModel: income_expense_1.default,
 };
 //# sourceMappingURL=index.js.map

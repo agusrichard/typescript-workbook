@@ -3,9 +3,9 @@ import { Pool } from 'pg'
 export interface IncomeExpenseType {
   id?: number,
   description?: string,
-  userID?: number,
-  isDeleted?: boolean
-  deletedAt: Date
+  user_id?: number,
+  is_deleted?: boolean
+  deleted_at: Date
 }
 
 export interface IncomeExpenseTypeModel {
@@ -31,7 +31,7 @@ const initilizeIncomeExpenseTypeModel = (db: Pool): IncomeExpenseTypeModel => ({
         RETURNING id;
       `
 
-      const { rows } = await db.query(query, [incomeExpenseType.description, incomeExpenseType.userID])
+      const { rows } = await db.query(query, [incomeExpenseType.description, incomeExpenseType.user_id])
       const result: IncomeExpenseType = { ...rows[0] }
       return Promise.resolve(result)
     } catch (error) {
@@ -61,7 +61,7 @@ const initilizeIncomeExpenseTypeModel = (db: Pool): IncomeExpenseTypeModel => ({
         WHERE description=$1 AND user_id=$2 AND is_deleted=FALSE AND deleted_at IS NULL;
       `
 
-      const { rows } = await db.query(query, [incomeExpenseType.description, incomeExpenseType.userID])
+      const { rows } = await db.query(query, [incomeExpenseType.description, incomeExpenseType.user_id])
       const result: IncomeExpenseType = { ...rows[0] }
       return Promise.resolve(result)
     } catch (error) {

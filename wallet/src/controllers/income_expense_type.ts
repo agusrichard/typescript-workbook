@@ -17,7 +17,7 @@ const initializeIncomeExpenseTypeController = (incomeExpenseTypeModel: IncomeExp
   create: async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
     try {
       const { id } = res.locals.userData
-      const input: IncomeExpenseType = { ...req.body, userID: id }
+      const input: IncomeExpenseType = { ...req.body, user_id: id }
       const found = await incomeExpenseTypeModel.findByDescriptionAndUserID(input)
       if (!_.isEmpty(found)) {
         return ResponseTemplate.badRequestError(res, 'It has been created')
