@@ -30,7 +30,7 @@ CREATE TABLE public.income_expense (
 	deleted_at timestamptz NULL,
 	income_expense_type_id int4 NOT NULL,
 	user_id int4 NOT NULL,
-	is_income bool NOT NULL,,
+	is_income bool NOT NULL,
 	CONSTRAINT income_expense_pk PRIMARY KEY (id),
 	CONSTRAINT income_expense_income_expense_type_id_fkey FOREIGN KEY (income_expense_type_id) REFERENCES public.income_expense_type(id),
 	CONSTRAINT income_expense_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id)

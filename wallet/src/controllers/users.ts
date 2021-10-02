@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { Request, Response } from 'express'
 
 import { UsersModel, User } from '../models'
@@ -20,7 +21,7 @@ const initializeUsersController: Initializer = (usersModel: UsersModel) : UsersC
   register: async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
     try {
       const userFound = await usersModel.findByEmail(req.body.email)
-      if (userFound) {
+      if (!_.isEmpty(userFound)) {
         return ResponseTemplate.badRequestError(res, 'User has been registered')
       }
 

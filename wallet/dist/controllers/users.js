@@ -8,13 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = __importDefault(require("lodash"));
 const utils_1 = require("../utils");
 const initializeUsersController = (usersModel) => ({
     register: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const userFound = yield usersModel.findByEmail(req.body.email);
-            if (userFound) {
+            if (!lodash_1.default.isEmpty(userFound)) {
                 return utils_1.ResponseTemplate.badRequestError(res, 'User has been registered');
             }
             const hashedPassword = yield (0, utils_1.generatePassword)(req.body.password);
