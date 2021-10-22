@@ -6,11 +6,11 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "eslint": "eslint src/app.ts",
+    "eslint": "eslint src/index.ts",
     "start": "node dist/app.js",
-    "dev-server": "nodemon ./src/app.ts",
+    "dev-server": "nodemon",
     "lint": "./node_modules/eslint/bin/eslint.js  src --ext .ts",
-    "ts-node-server": "ts-node ./src/app.ts",
+    "ts-node-server": "ts-node ./src/index.ts",
     "fix-lint": "./node_modules/eslint/bin/eslint.js  src --ext .ts --fix"
   },
   "keywords": [],
@@ -46,6 +46,6 @@
     "typescript": "^4.4.3"
   },
   "files": [
-    "/dist"
+    "/build"
   ]
 }

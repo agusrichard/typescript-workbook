@@ -20,6 +20,7 @@ type Initializer = (usersModel: UsersModel) => UsersController
 const initializeUsersController: Initializer = (usersModel: UsersModel) : UsersController => ({
   register: async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
     try {
+      console.log('here sekar')
       const userFound = await usersModel.findByEmail(req.body.email)
       if (!_.isEmpty(userFound)) {
         return ResponseTemplate.badRequestError(res, 'User has been registered')
@@ -30,6 +31,7 @@ const initializeUsersController: Initializer = (usersModel: UsersModel) : UsersC
       const newUser: User = await usersModel.create(user)
       return ResponseTemplate.successResponse(res, 'Success to register user', newUser)
     } catch (error) {
+      console.log('error', error)
       return ResponseTemplate.internalServerError(res)
     }
   },

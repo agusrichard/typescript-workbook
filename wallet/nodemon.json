@@ -1,5 +1,5 @@
-{ 
-    "watch": ["src"],
-    "exec": "tsc && node dist/app.js" ,
-    "ext": "js, json, ts, proto"
+{
+  "watch": ["src"],
+  "ext": "ts, json",
+  "exec": "tsc && node ./build/index.js"
 }

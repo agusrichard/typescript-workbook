@@ -1,21 +1,23 @@
 version: "3"
 
 services:
-  # wallet-api-server:
-  #   build:
-  #     context: .
-  #     dockerfile: dev.Dockerfile
-  #   container_name: wallet-api-server
-  #   image: wallet-api-server
-  #   restart: unless-stopped
-  #   env_file:
-  #     - ".env"
-  #   volumes:
-  #     - /usr/app/node_modules
-  #   networks:
-  #     - app-network
-  #   ports:
-  #     - "3000:3000"
+  wallet-api-server:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    container_name: wallet-api-server
+    image: wallet-api-server
+    restart: unless-stopped
+    env_file:
+      - ".env"
+    volumes:
+      - /usr/app/node_modules
+      - ./src:/usr/app/src
+      - ./build:/usr/app/build
+    networks:
+      - app-network
+    ports:
+      - "3000:3000"
   wallet-db:
     build:
       context: .
@@ -31,9 +33,9 @@ services:
       - POSTGRES_DB=${DB_NAME}
     volumes:
       - wallet-db-volume:/var/lib/postgresql/data
-# networks:
-#   app-network:
-#     driver: bridge
+networks:
+  app-network:
+    driver: bridge
 volumes:
   wallet-db-volume:
     driver: local
