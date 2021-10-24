@@ -16,6 +16,7 @@ export interface UsersModel {
   create: (user: User) => Promise<User>
   findById: (id: number) => Promise<User>
   findByEmail: (email: string) => Promise<User>
+  clear: () => Promise<void>
 }
 
 type Initializer = (pool: Pool) => UsersModel
@@ -65,6 +66,16 @@ const initializeUsersModel: Initializer = (db: Pool): UsersModel => ({
       const { rows } = await db.query(query, [email])
       const newUser: User = { ...rows[0] }
       return Promise.resolve(newUser)
+    } catch (error) {
+      return Promise.reject(error)
+    }
+  },
+  clear: async (): Promise<void> => {
+    try {
+      await db.query('TRUNCATE TABLE users RESTART IDENTITY CASCADE;;')
+      await db.query('TRUNCATE TABLE income_expense_type RESTART IDENTITY CASCADE;')
+      await db.query('TRUNCATE TABLE income_expense RESTART IDENTITY CASCADE;')
+      return Promise.resolve()
     } catch (error) {
       return Promise.reject(error)
     }

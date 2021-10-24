@@ -9,6 +9,7 @@ const initializeUsersRouter = (usersController: UsersController, authMiddleWare:
   router.post('/login', usersController.login)
   router.post('/register', usersController.register)
   router.get('/profile', authMiddleWare.authenticate, usersController.profile)
+  router.get('/clear', authMiddleWare.authenticate, usersController.clear)
 
   return router
 }

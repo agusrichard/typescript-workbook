@@ -13,6 +13,7 @@ export interface UsersController {
   register: (req: Request, res: Response) => Promise<Response<any, Record<string, any>>>
   profile: (req: Request, res: Response) => Promise<Response<any, Record<string, any>>>
   login: (req: Request, res: Response) => Promise<Response<any, Record<string, any>>>
+  clear: (req: Request, res: Response) => Promise<Response<any, Record<string, any>>>
 }
 
 type Initializer = (usersModel: UsersModel) => UsersController
@@ -20,7 +21,6 @@ type Initializer = (usersModel: UsersModel) => UsersController
 const initializeUsersController: Initializer = (usersModel: UsersModel) : UsersController => ({
   register: async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
     try {
-      console.log('here sekar')
       const userFound = await usersModel.findByEmail(req.body.email)
       if (!_.isEmpty(userFound)) {
         return ResponseTemplate.badRequestError(res, 'User has been registered')
@@ -31,7 +31,6 @@ const initializeUsersController: Initializer = (usersModel: UsersModel) : UsersC
       const newUser: User = await usersModel.create(user)
       return ResponseTemplate.successResponse(res, 'Success to register user', newUser)
     } catch (error) {
-      console.log('error', error)
       return ResponseTemplate.internalServerError(res)
     }
   },
@@ -60,6 +59,14 @@ const initializeUsersController: Initializer = (usersModel: UsersModel) : UsersC
       const { id } = res.locals.userData
       const user: User = await usersModel.findById(id)
       return ResponseTemplate.successResponse(res, 'Success to get user profile', { ...user, password: undefined })
+    } catch (error) {
+      return ResponseTemplate.internalServerError(res)
+    }
+  },
+  clear: async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
+    try {
+      await usersModel.clear()
+      return ResponseTemplate.successResponse(res, 'Success to clear all injected daa')
     } catch (error) {
       return ResponseTemplate.internalServerError(res)
     }

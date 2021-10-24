@@ -39,6 +39,10 @@ app.use('/users', usersRouters)
 app.use('/income-expense', incomeExpenseRouters)
 app.use('/income-expense-type', incomeExpenseTypeRouters)
 
+app.get('/', (req, res) => {
+  res.send('Welcome to the API')
+})
+
 app.listen(Configs.PORT, () => {
   console.log(`Server listening on port ${Configs.PORT}`)
 })
