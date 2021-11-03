@@ -1,0 +1,36 @@
+version: "3"
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: server
+    image: server
+    restart: always
+    volumes:
+      - /usr/app/node_modules
+      - ./src:/usr/app/src
+      - ./build:/usr/app/build
+    networks:
+      - app-network
+    ports:
+      - "5000:5000"
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    container_name: db
+    env_file:
+      - ".env"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+networks:
+  app-network:
+    driver: bridge
+volumes:
+  db-volume:
+    driver: local

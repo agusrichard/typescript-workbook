@@ -140,6 +140,103 @@
 - Now, when you run `npm run dev`, you'll see that if you change your code inside src folder. It'll live reload your server.
 
 ### Setup Docker and docker-compose
+- Create a `Dockerfile` and write this:
+  ```Dockerfile
+  FROM node
+
+  WORKDIR /usr/app
+  COPY package*.json ./
+  RUN npm install
+  COPY . ./
+  EXPOSE 5000
+  CMD npm run dev
+  ```
+- Create a `docker-compose.yaml` file and write this:
+  ```yaml
+  version: "3"
+  services:
+    server:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: server
+      image: server
+      restart: always
+      volumes:
+        - /usr/app/node_modules
+        - ./src:/usr/app/src
+        - ./build:/usr/app/build
+      networks:
+        - app-network
+      ports:
+        - "5000:5000"
+  networks:
+    app-network:
+      driver: bridge
+  ```
+- Now you can build the docker image by running `docker-compose build`
+- Then you can run the container by running `docker-compose up`
+- Or you can simple run command `docker-compose up --build` (you'll build the images first)
+
+### Create Makefile for simpler commands
+- Create a `Makefile` and write this:
+  ```Makefile
+  build:
+    docker-compose build
+
+  up:
+    docker-compose up
+
+  run:
+    docker-compose up --build
+
+  down:
+    docker-compose down --remove-orphans
+  ```
+- Now, you can build by running `make build`, etc
+
+### Adding Postgres database service to docker-compose file
+- Rewrite `docker-compose.yaml` into this:
+  ```yaml
+  version: "3"
+  services:
+    server:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: server
+      image: server
+      restart: always
+      volumes:
+        - /usr/app/node_modules
+        - ./src:/usr/app/src
+        - ./build:/usr/app/build
+      networks:
+        - app-network
+      ports:
+        - "5000:5000"
+    db:
+      image: postgres
+      ports:
+        - "5432:5432"
+      container_name: db
+      env_file:
+        - ".env"
+      environment:
+        - POSTGRES_USER=${DB_USER}
+        - POSTGRES_PASSWORD=${DB_PASSWORD}
+        - POSTGRES_DB=${DB_NAME}
+      volumes:
+        - db-volume:/var/lib/postgresql/data
+  networks:
+    app-network:
+      driver: bridge
+  volumes:
+    db-volume:
+      driver: local
+  ```
+- You can re-run by running command `make run`
+
 
 ## Resources:
 - https://www.digitalocean.com/community/tutorials/typescript-new-project
