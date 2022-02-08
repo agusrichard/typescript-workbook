@@ -1,2 +1,2 @@
 # Event driven microservices
-User Service
+Auth Service
