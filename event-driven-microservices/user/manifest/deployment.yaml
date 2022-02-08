@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: user-service-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: user-service
@@ -30,3 +30,6 @@ spec:
           requests:
             cpu: "1"
             memory: "1Gi"
+        envFrom:
+          - secretRef:
+              name: user-service-secret
