@@ -1,2 +1,1 @@
-# sejutacita-coding-test
-Coding Test
+# Event Driven Architecture
