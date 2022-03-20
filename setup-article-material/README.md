@@ -3,7 +3,8 @@
 ## Setup TypeScript Project
 - Run `npm init -y` to initialize the project
 - Run `npm i typescript --save-dev` to initialize TypeScript configuration
-- Now, you have package.json (with package-lock) and tsconfig.json
+- Now, you have package.json (with package-lock).
+- To initialize TypeScript project, run `npx tsc --init`. Then you'll have tsconfig.json
 - Inside tsconfig.json there are compiler options that you could use or not use.
 - Simplify tsconfig.json into this:
   ```json
