@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      name: auth-service
+      labels:
+        app: auth-service
+    spec:
+      containers:
+      - name: auth-service
+        image: agusrichard/auth-service
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 2
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            cpu: "1"
+            memory: "1Gi"
+        envFrom:
+          - secretRef:
+              name: auth-service-secret

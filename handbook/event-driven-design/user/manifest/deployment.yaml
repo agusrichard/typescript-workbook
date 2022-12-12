@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      name: user-service
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - name: user-service
+        image: agusrichard/user-service
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 2
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            cpu: "1"
+            memory: "1Gi"
+        envFrom:
+          - secretRef:
+              name: user-service-secret
