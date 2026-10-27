@@ -1,32 +1,30 @@
-# React + TypeScript + Vite
+# Secure React App
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A small React client for the sibling Rust API in `rust-workbook/secure-rest-api`.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Start the backend first (it listens on port 3000):
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+cd /Users/agusrichard/Documents/personal/workbook/rust-workbook/secure-rest-api
+cargo run
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Then start this frontend:
+
+```sh
+npm run dev
+```
+
+Open the URL printed by Vite. Development requests to `/auth` and `/api` are proxied to `http://localhost:3000`, which also keeps the refresh cookie same-origin from the browser's point of view.
+
+## Included flows
+
+- Create an account
+- Sign in
+- Restore a session with the HTTP-only refresh cookie
+- Request the protected `/api/me` endpoint
+- Sign out
+
+The short-lived access token is kept in memory rather than local storage.
