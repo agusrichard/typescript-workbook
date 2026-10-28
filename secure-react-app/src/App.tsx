@@ -143,7 +143,7 @@ function App() {
           <span>Secure App</span>
         </div>
         <div>
-          <p className="eyebrow">Simple authentication</p>
+          <p className="eyebrow">Simple Authentication</p>
           <h1 id="page-title">A small, secure place to sign in.</h1>
           <p className="lead">
             Create an account, sign in, and open content protected by the Rust API.
